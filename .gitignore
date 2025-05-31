@@ -1,6 +1,10 @@
+*.iml
 *.log
 .classpath
+.idea/
 .project
 .settings/
 /.metadata/
+/TAGS
+node_modules/
 target/
