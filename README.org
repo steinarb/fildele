@@ -32,13 +32,15 @@ The instructions are suitable for a debian 9 ("stretch") GNU/linux system:
  4. In the karaf console:
     1. Install the fildele application
        #+BEGIN_EXAMPLE
-       e
+         feature:repo-add mvn:no.priv.bang.fildele/karaf/LATEST/xml/features
+         feature:install fildele-with-derby
        #+END_EXAMPLE
-    2. Configure a file share area
+    2. open http://localhost:8181/fildele in a web browser
+    3. Configure a file share area
        #+BEGIN_EXAMPLE
        e
        #+END_EXAMPLE
-    3. Configure user access to the file share area
+    4. Configure user access to the file share area
        #+BEGIN_EXAMPLE
        e
        #+END_EXAMPLE
