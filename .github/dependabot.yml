@@ -17,7 +17,7 @@ updates:
   schedule:
     interval: "daily"
 - package-ecosystem: "npm"
-  directory: "/ratatoskr.web.frontend/src/main/frontend/"
+  directory: "/fildele.web.frontend/src/main/frontend/"
   schedule:
     interval: "daily"
   groups:
