@@ -46,7 +46,7 @@ import no.priv.bang.osgiservice.users.Role;
 import no.priv.bang.osgiservice.users.UserManagementService;
 
 @Component(service=FildeleService.class, immediate=true, property= { "defaultlocale=nb_NO" })
-public class fildeleServiceProvider implements FildeleService {
+public class FildeleServiceProvider implements FildeleService {
 
     private static final String DISPLAY_TEXT_RESOURCES = "i18n.Texts";
     private Logger logger;
@@ -56,7 +56,7 @@ public class fildeleServiceProvider implements FildeleService {
 
     @Reference
     public void setLogservice(LogService logservice) {
-        this.logger = logservice.getLogger(fildeleServiceProvider.class);
+        this.logger = logservice.getLogger(FildeleServiceProvider.class);
     }
 
     @Reference(target = "(osgi.jndi.service.name=jdbc/fildele)")

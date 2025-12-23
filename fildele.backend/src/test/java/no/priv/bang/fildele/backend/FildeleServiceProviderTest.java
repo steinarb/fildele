@@ -59,7 +59,7 @@ class FildeleServiceProviderTest {
     void testGetAccounts() {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         provider.setLogservice(logservice);
         provider.setDatasource(datasource);
         provider.setUseradmin(useradmin);
@@ -91,7 +91,7 @@ class FildeleServiceProviderTest {
     void testThatRoleIsAddedIfMissing() {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         provider.setLogservice(logservice);
         provider.setDatasource(datasource);
         provider.setUseradmin(useradmin);
@@ -105,7 +105,7 @@ class FildeleServiceProviderTest {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
         when(useradmin.getRoles()).thenReturn(Collections.singletonList(Role.with().rolename(FILDELEUSER_ROLE).build()));
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         provider.setLogservice(logservice);
         provider.setDatasource(datasource);
         provider.setUseradmin(useradmin);
@@ -118,7 +118,7 @@ class FildeleServiceProviderTest {
     void testGetAccountsWithSQLException() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -136,7 +136,7 @@ class FildeleServiceProviderTest {
     void testLazilyCreateAccountWithSQLException() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -154,7 +154,7 @@ class FildeleServiceProviderTest {
     void testIncrementAndDecrement() {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         provider.setLogservice(logservice);
         provider.setDatasource(datasource);
         provider.setUseradmin(useradmin);
@@ -187,7 +187,7 @@ class FildeleServiceProviderTest {
     void testGetCounterIncrementStepWithSQLException() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -205,7 +205,7 @@ class FildeleServiceProviderTest {
     void testUpdateCounterIncrementStepWithSQLException() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -223,7 +223,7 @@ class FildeleServiceProviderTest {
     void testGetCounterWithSQLExceptio() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -241,7 +241,7 @@ class FildeleServiceProviderTest {
     void testIncrementCounterWithSQLExceptio() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -259,7 +259,7 @@ class FildeleServiceProviderTest {
     void testDecrementCounterWithSQLExceptio() throws Exception {
         var logservice = new MockLogService();
         var useradmin = mock(UserManagementService.class);
-        var provider = new fildeleServiceProvider();
+        var provider = new FildeleServiceProvider();
         var datasourceThrowsException = mock(DataSource.class);
         when(datasourceThrowsException.getConnection()).thenThrow(SQLException.class);
         provider.setLogservice(logservice);
@@ -275,7 +275,7 @@ class FildeleServiceProviderTest {
 
     @Test
     void testDefaultLocale() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         fildele.setUseradmin(useradmin);
         fildele.activate(Collections.singletonMap("defaultlocale", "nb_NO"));
@@ -284,7 +284,7 @@ class FildeleServiceProviderTest {
 
     @Test
     void testAvailableLocales() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         fildele.setUseradmin(useradmin);
         fildele.activate(Collections.singletonMap("defaultlocale", "nb_NO"));
@@ -294,7 +294,7 @@ class FildeleServiceProviderTest {
 
     @Test
     void testDisplayTextsForDefaultLocale() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         fildele.setUseradmin(useradmin);
         fildele.activate(Collections.singletonMap("defaultlocale", "nb_NO"));
@@ -304,7 +304,7 @@ class FildeleServiceProviderTest {
 
     @Test
     void testDisplayText() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         fildele.setUseradmin(useradmin);
         fildele.activate(Collections.singletonMap("defaultlocale", "nb_NO"));

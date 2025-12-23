@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockServletContext;
 
-import no.priv.bang.fildele.backend.fildeleServiceProvider;
+import no.priv.bang.fildele.backend.FildeleServiceProvider;
 import no.priv.bang.fildele.services.FildeleService;
 import no.priv.bang.fildele.services.beans.Credentials;
 import no.priv.bang.fildele.web.api.ShiroTestBase;
@@ -205,7 +205,7 @@ class LoginResourceTest extends ShiroTestBase {
 
     @Test
     void testLoginWrongPassword() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var logservice = new MockLogService();
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -222,7 +222,7 @@ class LoginResourceTest extends ShiroTestBase {
 
     @Test
     void testLoginWhenMaxFailedLoginLimitReached() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var logservice = new MockLogService();
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -239,7 +239,7 @@ class LoginResourceTest extends ShiroTestBase {
 
     @Test
     void testLoginLockedAccount() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var logservice = new MockLogService();
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -256,7 +256,7 @@ class LoginResourceTest extends ShiroTestBase {
 
     @Test
     void testLoginOtherAuthenticationError() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var logservice = new MockLogService();
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -273,7 +273,7 @@ class LoginResourceTest extends ShiroTestBase {
 
     @Test
     void testLoginUnkownUsername() {
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var logservice = new MockLogService();
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -300,7 +300,7 @@ class LoginResourceTest extends ShiroTestBase {
     @Test
     void testLogout() {
         var locale = "nb_NO";
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var resource = new LoginResource();
         resource.fildele = fildele;
         var username = "jd";
@@ -320,7 +320,7 @@ class LoginResourceTest extends ShiroTestBase {
     @Test
     void testGetLoginstateWhenLoggedIn() {
         var locale = "nb_NO";
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -340,7 +340,7 @@ class LoginResourceTest extends ShiroTestBase {
     @Test
     void testGetLoginstateWhenLoggedInButUserDoesntHaveRoleFildeleuser() {
         var locale = "nb_NO";
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         var resource = new LoginResource();
         resource.fildele = fildele;
@@ -360,7 +360,7 @@ class LoginResourceTest extends ShiroTestBase {
     @Test
     void testGetLoginstateWhenNotLoggedIn() {
         var locale = "nb_NO";
-        var fildele = new fildeleServiceProvider();
+        var fildele = new FildeleServiceProvider();
         var useradmin = mock(UserManagementService.class);
         var resource = new LoginResource();
         resource.fildele = fildele;
