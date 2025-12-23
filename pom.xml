@@ -18,7 +18,7 @@ under the License.
     <parent>
         <groupId>no.priv.bang.pom</groupId>
         <artifactId>bang-authservice-client-pom</artifactId>
-        <version>2.1.19</version>
+        <version>2.1.20</version>
     </parent>
     <groupId>no.priv.bang.fildele</groupId>
     <artifactId>fildele</artifactId>
@@ -38,7 +38,7 @@ under the License.
         </sonar.cpd.exclusions>
         <sonar.issue.ignore.multicriteria>e1, e2, e3</sonar.issue.ignore.multicriteria>
         <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S6813</sonar.issue.ignore.multicriteria.e1.ruleKey>
-        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/sampleapp.web.api/src/main/java/**/resources/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/fildele.web.api/src/main/java/**/resources/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
         <sonar.issue.ignore.multicriteria.e2.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e2.ruleKey>
         <sonar.issue.ignore.multicriteria.e2.resourceKey>**/FildeleWebApiTest.java</sonar.issue.ignore.multicriteria.e2.resourceKey>
         <sonar.issue.ignore.multicriteria.e3.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e3.ruleKey>
