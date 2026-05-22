@@ -320,16 +320,18 @@ under the License.
         </profile>
     </profiles>
 
-<modules>  <module>fildele.db.liquibase</module>
-    <module>fildele.db.liquibase.test</module>
-    <module>fildele.db.liquibase.production</module>
-    <module>fildele.services</module>
-    <module>fildele.backend</module>
-    <module>fildele.backend.testdata</module>
-    <module>fildele.web.security</module>
-    <module>fildele.web.api</module>
-    <module>fildele.web.frontend</module>
-    <module>karaf</module>
-    <module>fildele.tests</module>
-    <module>jacoco-coverage-report</module>
-  </modules></project>
+    <modules>
+        <module>fildele.db.liquibase</module>
+        <module>fildele.db.liquibase.test</module>
+        <module>fildele.db.liquibase.production</module>
+        <module>fildele.services</module>
+        <module>fildele.backend</module>
+        <module>fildele.backend.testdata</module>
+        <module>fildele.web.security</module>
+        <module>fildele.web.api</module>
+        <module>fildele.web.frontend</module>
+        <module>karaf</module>
+        <module>fildele.tests</module>
+        <module>jacoco-coverage-report</module>
+    </modules>
+</project>
