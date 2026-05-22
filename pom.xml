@@ -92,6 +92,11 @@ under the License.
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.1</version>
+            </dependency>
+            <dependency>
                 <groupId>no.priv.bang.servlet</groupId>
                 <artifactId>servlet-bom</artifactId>
                 <version>${bang-servlet.version}</version>

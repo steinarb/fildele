@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Steinar Bang
+ * Copyright 2025-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,12 @@
  */
 package no.priv.bang.fildele.web.api;
 
+import static org.mockito.AdditionalAnswers.delegatesTo;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.withSettings;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +34,6 @@ import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.env.IniWebEnvironment;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.subject.WebSubject;
-
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mockrunner.mock.web.MockHttpSession;
@@ -82,7 +84,7 @@ public class ShiroTestBase {
     }
 
     protected WebSubject createSubjectAndBindItToThread(HttpServletRequest request, HttpServletResponse response) {
-        var subject = new WebSubject.Builder(getSecurityManager(), request, response).buildWebSubject();
+        var subject = new WebSubject.Builder(getSecurityManager(), wrapRequestInMock(request), response).buildWebSubject();
         ThreadContext.bind(subject);
         return subject;
     }
@@ -105,6 +107,13 @@ public class ShiroTestBase {
         }
 
         return securitymanager;
+    }
+
+    // Workaround for MockHttpServletRequest not implementing all methods of HttpServletRequest interface in classpath
+    private HttpServletRequest wrapRequestInMock(HttpServletRequest request) {
+        var wrapped = mock(HttpServletRequest.class, withSettings().defaultAnswer(delegatesTo(request)));
+        doReturn("").when(wrapped).changeSessionId();
+        return wrapped;
     }
 
     private static SimpleAccountRealm findRealmFromSecurityManager(WebSecurityManager securitymanager) {
