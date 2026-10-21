@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Steinar Bang
+ * Copyright 2025-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -149,9 +149,7 @@ public class LoginResource {
         var username = (String) subject.getPrincipal();
         var success = subject.isAuthenticated();
         var harRoleFildeleuser = subject.hasRole(FILDELEUSER_ROLE);
-        var brukerLoggetInnMelding = harRoleFildeleuser ?
-            fildele.displayText("userloggedinwithaccesses", locale) :
-            fildele.displayText("userloggedinwithoutaccesses", locale);
+        var brukerLoggetInnMelding = fildele.displayText(harRoleFildeleuser ? "userloggedinwithaccesses" : "userloggedinwithoutaccesses", locale);
         var melding = success ? brukerLoggetInnMelding : fildele.displayText("usernotloggedin", locale);
         var user = findUserSafely(username);
         return Loginresult.with()
