@@ -1,5 +1,6 @@
+package no.priv.bang.fildele.web.api;
 /*
- * Copyright 2025 Steinar Bang
+ * Copyright 2025-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.fildele.web.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +36,6 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.server.ServerProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.osgi.service.log.LogService;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -51,7 +50,6 @@ import no.priv.bang.fildele.services.beans.CounterIncrementStepBean;
 import no.priv.bang.fildele.services.beans.Credentials;
 import no.priv.bang.fildele.services.beans.LocaleBean;
 import no.priv.bang.fildele.web.api.resources.ErrorMessage;
-import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 import no.priv.bang.osgiservice.users.UserManagementService;
 
 class FildeleWebApiTest extends ShiroTestBase {
@@ -72,10 +70,9 @@ class FildeleWebApiTest extends ShiroTestBase {
         var username = "jd";
         var password = Base64.getEncoder().encodeToString("johnnyBoi".getBytes());
         var credentials = Credentials.with().username(username).password(password).build();
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         createSubjectAndBindItToThread();
         var request = buildPostUrl("/login");
         var postBody = mapper.writeValueAsString(credentials);
@@ -91,10 +88,9 @@ class FildeleWebApiTest extends ShiroTestBase {
         var username = "jd";
         var password = Base64.getEncoder().encodeToString("johnniBoi".getBytes());
         var credentials = Credentials.with().username(username).password(password).build();
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         createSubjectAndBindItToThread();
         var request = buildPostUrl("/login");
         var postBody = mapper.writeValueAsString(credentials);
@@ -107,12 +103,11 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testGetAccounts() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var account = Account.with().accountId(123).build();
         when(fildele.getAccounts()).thenReturn(Collections.singletonList(account));
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/accounts");
         var response = new MockHttpServletResponse();
 
@@ -126,12 +121,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testGetCounterIncrementStep() throws Exception {
         var incrementStepValue = 1;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalIncrementStep = Optional.of(CounterIncrementStepBean.with().counterIncrementStep(incrementStepValue).build());
         when(fildele.getCounterIncrementStep(anyString())).thenReturn(optionalIncrementStep);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/incrementstep/jad");
         var response = new MockHttpServletResponse();
 
@@ -145,12 +139,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testGetCounterIncrementStepWhenNotLoggedIn() throws Exception {
         var incrementStepValue = 1;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalIncrementStep = Optional.of(CounterIncrementStepBean.with().counterIncrementStep(incrementStepValue).build());
         when(fildele.getCounterIncrementStep(anyString())).thenReturn(optionalIncrementStep);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/incrementstep/jad");
         var response = new MockHttpServletResponse();
 
@@ -162,12 +155,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testGetCounterIncrementStepWhenUserLacksRole() throws Exception {
         var incrementStepValue = 1;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalIncrementStep = Optional.of(CounterIncrementStepBean.with().counterIncrementStep(incrementStepValue).build());
         when(fildele.getCounterIncrementStep(anyString())).thenReturn(optionalIncrementStep);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/incrementstep/jad");
         var response = new MockHttpServletResponse();
 
@@ -178,10 +170,9 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testGetCounterIncrementStepWhenNotFound() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/incrementstep/jad");
         var response = new MockHttpServletResponse();
 
@@ -193,12 +184,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testUpdateCounterIncrementStep() throws Exception {
         var incrementStepValue = 1;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalIncrementStep = Optional.of(CounterIncrementStepBean.with().counterIncrementStep(incrementStepValue).build());
         when(fildele.updateCounterIncrementStep(any())).thenReturn(optionalIncrementStep);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var updateIncrementStep = CounterIncrementStepBean.with()
             .username("jad")
             .counterIncrementStep(incrementStepValue)
@@ -217,10 +207,9 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testUpdateCounterIncrementStepWhenUpdateFails() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var updateIncrementStep = CounterIncrementStepBean.with()
             .username("jad")
             .counterIncrementStep(3)
@@ -238,12 +227,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testGetCounter() throws Exception {
         var counterValue = 3;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalCounter = Optional.of(CounterBean.with().counter(counterValue).build());
         when(fildele.getCounter(anyString())).thenReturn(optionalCounter);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad");
         var response = new MockHttpServletResponse();
 
@@ -256,10 +244,9 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testGetCounterWhenNotFound() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad");
         var response = new MockHttpServletResponse();
 
@@ -271,12 +258,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testIncrementCounter() throws Exception {
         var counterValue = 3;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalCounter = Optional.of(CounterBean.with().counter(counterValue).build());
         when(fildele.incrementCounter(anyString())).thenReturn(optionalCounter);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad/increment");
         var response = new MockHttpServletResponse();
 
@@ -289,10 +275,9 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testIncrementCounterWhenFailing() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad/increment");
         var response = new MockHttpServletResponse();
 
@@ -304,12 +289,11 @@ class FildeleWebApiTest extends ShiroTestBase {
     @Test
     void testDecrementCounter() throws Exception {
         var counterValue = 3;
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var optionalCounter = Optional.of(CounterBean.with().counter(counterValue).build());
         when(fildele.decrementCounter(anyString())).thenReturn(optionalCounter);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad/decrement");
         var response = new MockHttpServletResponse();
 
@@ -322,10 +306,9 @@ class FildeleWebApiTest extends ShiroTestBase {
 
     @Test
     void testDecrementCounterWhenFailing() throws Exception {
-        var logservice = new MockLogService();
         var fildele = mock(FildeleService.class);
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
         var request = buildGetUrl("/counter/jad/decrement");
         var response = new MockHttpServletResponse();
 
@@ -339,10 +322,8 @@ class FildeleWebApiTest extends ShiroTestBase {
         // Set up REST API servlet with mocked services
         var fildele = mock(FildeleService.class);
         when(fildele.defaultLocale()).thenReturn(NB_NO);
-        var logservice = new MockLogService();
-
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
 
         // Create the request and response
         var request = buildGetUrl("/defaultlocale");
@@ -362,10 +343,8 @@ class FildeleWebApiTest extends ShiroTestBase {
         // Set up REST API servlet with mocked services
         var fildele = mock(FildeleService.class);
         when(fildele.availableLocales()).thenReturn(Collections.singletonList(Locale.forLanguageTag("nb-NO")).stream().map(l -> LocaleBean.with().locale(l).build()).toList());
-        MockLogService logservice = new MockLogService();
-
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
 
         // Create the request and response
         var request = buildGetUrl("/availablelocales");
@@ -388,10 +367,8 @@ class FildeleWebApiTest extends ShiroTestBase {
         var texts = new HashMap<String, String>();
         texts.put("date", "Dato");
         when(fildele.displayTexts(NB_NO)).thenReturn(texts);
-        var logservice = new MockLogService();
-
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
 
         // Create the request and response
         var request = buildGetUrl("/displaytexts");
@@ -415,10 +392,8 @@ class FildeleWebApiTest extends ShiroTestBase {
         var texts = new HashMap<>();
         texts.put("date", "Dato");
         when(fildele.displayTexts(EN_UK)).thenThrow(MissingResourceException.class);
-        var logservice = new MockLogService();
-
         var useradmin = mock(UserManagementService.class);
-        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin, logservice);
+        var servlet = simulateDSComponentActivationAndWebWhiteboardConfiguration(fildele , useradmin);
 
         // Create the request and response
         var request = buildGetUrl("/displaytexts");
@@ -463,9 +438,8 @@ class FildeleWebApiTest extends ShiroTestBase {
         return request;
     }
 
-    private FildeleWebApi simulateDSComponentActivationAndWebWhiteboardConfiguration(FildeleService fildele, UserManagementService useradmin, LogService logservice) throws Exception {
+    private FildeleWebApi simulateDSComponentActivationAndWebWhiteboardConfiguration(FildeleService fildele, UserManagementService useradmin) throws Exception {
         var servlet = new FildeleWebApi();
-        servlet.setLogService(logservice);
         servlet.setFildeleService(fildele);
         servlet.setUseradmin(useradmin);
         servlet.activate();

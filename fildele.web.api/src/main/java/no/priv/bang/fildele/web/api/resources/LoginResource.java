@@ -1,3 +1,4 @@
+package no.priv.bang.fildele.web.api.resources;
 /*
  * Copyright 2025-2026 Steinar Bang
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.fildele.web.api.resources;
 
 import static no.priv.bang.fildele.services.FildeleConstants.*;
 
@@ -42,8 +42,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
-import org.osgi.service.log.LogService;
-import org.osgi.service.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import no.priv.bang.authservice.definitions.AuthserviceException;
 import no.priv.bang.osgiservice.users.User;
@@ -56,8 +56,7 @@ import no.priv.bang.fildele.services.beans.Loginresult;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginResource {
-
-    private Logger logger;
+    private static final Logger logger = LoggerFactory.getLogger(LoginResource.class);
 
     @Inject
     ServletContext webcontext;
@@ -70,11 +69,6 @@ public class LoginResource {
 
     @Inject
     UserManagementService useradmin;
-
-    @Inject
-    void setLogservice(LogService logservice) {
-        this.logger = logservice.getLogger(LoginResource.class);
-    }
 
     @POST
     @Path("/login")

@@ -1,5 +1,6 @@
+package no.priv.bang.fildele.web.frontend;
 /*
- * Copyright 2025 Steinar Bang
+ * Copyright 2025-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +14,12 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.fildele.web.frontend;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.mockrunner.mock.web.MockHttpServletResponse;
 
-import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -35,12 +34,10 @@ class FildeleServletTest {
 
     @Test
     void testGet() throws Exception {
-        var logservice = new MockLogService();
         var servlet = new FildeleServlet();
         var servletConfig = mock(ServletConfig.class);
         when(servletConfig.getInitParameter("from")).thenReturn("to");
         servlet.init(servletConfig);
-        servlet.setLogService(logservice);
         var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/fildele/useradmin/");
@@ -57,7 +54,6 @@ class FildeleServletTest {
 
     @Test
     void testDoGetAddTrailingSlash() throws Exception {
-        var logservice = new MockLogService();
         var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/fildele/useradmin"));
@@ -65,7 +61,6 @@ class FildeleServletTest {
         var response = new MockHttpServletResponse();
 
         var servlet = new FildeleServlet();
-        servlet.setLogService(logservice);
 
         servlet.service(request, response);
 
@@ -74,7 +69,6 @@ class FildeleServletTest {
 
     @Test
     void testDoGetResponseThrowsIOException() throws Exception {
-        var logservice = new MockLogService();
         var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/fildele/useradmin/");
@@ -86,7 +80,6 @@ class FildeleServletTest {
         when(response.getOutputStream()).thenReturn(streamThrowingIOException);
 
         var servlet = new FildeleServlet();
-        servlet.setLogService(logservice);
 
         servlet.service(request, response);
 
@@ -95,7 +88,6 @@ class FildeleServletTest {
 
     @Test
     void testDoGetResponseStreamMethodThrowsIOException() throws Exception {
-        var logservice = new MockLogService();
         var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/fildele/useradmin/");
@@ -105,7 +97,6 @@ class FildeleServletTest {
         when(response.getOutputStream()).thenThrow(IOException.class);
 
         var servlet = new FildeleServlet();
-        servlet.setLogService(logservice);
 
         servlet.service(request, response);
 
@@ -114,7 +105,6 @@ class FildeleServletTest {
 
     @Test
     void testDoGetResourceNotFound() throws Exception {
-        var logservice = new MockLogService();
         var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/fildele/useradmin/static/nosuchname.png");
@@ -122,7 +112,6 @@ class FildeleServletTest {
         var response = new MockHttpServletResponse();
 
         var servlet = new FildeleServlet();
-        servlet.setLogService(logservice);
 
         servlet.service(request, response);
 
